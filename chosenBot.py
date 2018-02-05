@@ -8,8 +8,8 @@ import botTools as bt
 reddit = praw.Reddit("chosenBot", user_agent="The chosenBot by Lukas Horak v1.0")
 
 # active Subs - switch out which one is commented-out for easy testing purposes
-subreddit = reddit.subreddit("testingground4bots")
-#subreddit = reddit.subreddit('prequelmemes')
+#subreddit = reddit.subreddit("testingground4bots")
+subreddit = reddit.subreddit('prequelmemes')
 
 # Phrase which triggers the chosenBot
 keyword = 'men'
