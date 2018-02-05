@@ -43,15 +43,17 @@ for comment in subreddit.stream.comments():
                     men = re.search(r"[^ ]*men[^ ]*", firstHit, flags=re.I).group()
                 except Exception as exc:
                     print ("men fucked things up!\n\n", "error:\n\n", exc)
-                women = men.replace("men", "***women***")
-                children = men.replace("men", "***children***")
+                # Avoid matching URLs
+                if not re.match(r"(http|ftp|https)://([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:/~+#-]*[\w@?^=%&/~+#-])?", men):
+                    women = men.replace("men", "***women***")
+                    children = men.replace("men", "***children***")
 
-                case = re.compile(re.escape('men'), re.I) # to make sure "men" is replaced, case-independenr
-                reply += "> " + case.sub("***men***", firstHit) + "\n\n"
-                reply += "Not just the " + men + ", but the " + women + " and " + children + " too!"
-                reply += bottomText
-                comment.reply(reply)
-                bt.logPost(reply)
+                    case = re.compile(re.escape('men'), re.I) # to make sure "men" is replaced, case-independenr
+                    reply += "> " + case.sub("***men***", firstHit) + "\n\n"
+                    reply += "Not just the " + men + ", but the " + women + " and " + children + " too!"
+                    reply += bottomText
+                    #comment.reply(reply)
+                    bt.logPost(reply)
 
             except Exception as e:
                 bt.logError(eText, e)
@@ -64,7 +66,7 @@ for comment in subreddit.stream.comments():
                 print("Praise detected")
                 reply = "From *my* point of view, *you're* a good bot"
                 reply += bottomText
-                comment.reply(reply)
+                #comment.reply(reply)
                 bt.logPost(reply)
             except Exception as e:
                 bt.logError(eText, e)
@@ -76,7 +78,7 @@ for comment in subreddit.stream.comments():
                 print("Hatred detected")
                 reply = "[I HATE YOU](https://www.youtube.com/watch?v=eJrlezLvWnU)"
                 reply += bottomText
-                comment.reply(reply)
+                #comment.reply(reply)
                 bt.logPost(reply)
             except Exception as e:
                 bt.logError(eText, e)
