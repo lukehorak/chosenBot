@@ -1,11 +1,19 @@
 # chosenBot.py
 
+import os
 import praw
 import re
 import botTools as bt
 
 # Reddit API login, creds via praw.ini
-reddit = praw.Reddit("chosenBot", user_agent="The chosenBot by Lukas Horak v1.0")
+#reddit = praw.Reddit("chosenBot", user_agent="The chosenBot by Lukas Horak v1.0")
+
+# Reddit API login when hosted on Heroku
+reddit = praw.Reddit(client_id=74QS4j1HhLNThw,
+                     client_secret=dazewYctbRENtde6snqIvfOVK_4,
+                     username=os.environ['REDDIT_USERNAME'],
+                     password=os.environ['REDDIT_PASSWORD'])
+
 
 # active Subs - switch out which one is commented-out for easy testing purposes
 subreddit = reddit.subreddit("testingground4bots")
