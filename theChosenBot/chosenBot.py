@@ -16,8 +16,8 @@ reddit = praw.Reddit(client_id=74QS4j1HhLNThw,
 
 
 # active Subs - switch out which one is commented-out for easy testing purposes
-subreddit = reddit.subreddit("testingground4bots")
-#subreddit = reddit.subreddit('prequelmemes')
+#subreddit = reddit.subreddit("testingground4bots")
+subreddit = reddit.subreddit('prequelmemes')
 
 # Phrase which triggers the chosenBot
 keyword = 'men'
