@@ -8,6 +8,10 @@ import botTools as bt
 # Reddit API login, creds via praw.ini
 #reddit = praw.Reddit("chosenBot", user_agent="The chosenBot by Lukas Horak v1.0")
 
+'''
+TODO - Bot is successfully deployed, but not running. Investigate
+'''
+
 # Reddit API login when hosted on Heroku
 reddit = praw.Reddit(client_id=74QS4j1HhLNThw,
                      client_secret=dazewYctbRENtde6snqIvfOVK_4,
