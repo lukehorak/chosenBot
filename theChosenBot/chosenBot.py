@@ -6,10 +6,10 @@ import re
 import botTools as bt
 
 # Reddit API login, creds via praw.ini
-#reddit = praw.Reddit("chosenBot", user_agent="The chosenBot by Lukas Horak v1.0")
+reddit = praw.Reddit("chosenBot", user_agent="The chosenBot by Lukas Horak v1.0")
 
 '''
-TODO - Bot is successfully deployed, but not running. Investigate
+TODO - Figure out buildpack errors on Heroku
 '''
 
 # Reddit API login when hosted on Heroku
@@ -44,7 +44,7 @@ for comment in subreddit.stream.comments():
         print ("Parent Comment Author = ", pAuth) #for testing
         #print("Comment: ", comment.body, "\n~~~End of Comment~~~\n") # For unit testing
 
-        if (author != "not_just_the_men"):
+        if (author != "not_just_the_men" and bt.notReplied(comment, "not_just_the_men")):
             try:
                 reply = ''
                 try:

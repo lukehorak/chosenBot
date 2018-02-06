@@ -10,3 +10,9 @@ def logPost(reply):
 
 def logError(eText, e):
     print(eText, "\n\n", e)
+
+def notReplied(comment, user):
+    for reply in comment.replies:
+        if reply.author == user:
+            return False
+    return True
