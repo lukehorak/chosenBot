@@ -3,7 +3,32 @@
 import os
 import praw
 import re
-import botTools as bt
+#import botTools as bt
+
+###########################################################################################################
+# Function Declarations
+###########################################################################################################
+
+def parentAuthor(comment):
+    parent = comment.parent()
+    return parent.author
+
+def logPost(reply):
+    print("posted\n\n") # For logging purposes
+    print("Reply:\n", reply, "\n~~~End of Reply~~~\n")
+
+def logError(eText, e):
+    print(eText, "\n\n", e)
+
+def notReplied(comment, user):
+    for reply in comment.replies:
+        if reply.author == user:
+            return False
+    return True
+
+###########################################################################################################
+# Authentication
+###########################################################################################################
 
 # Reddit API login, creds via praw.ini
 #reddit = praw.Reddit("chosenBot", user_agent="The chosenBot by Lukas Horak v1.0")
@@ -31,6 +56,10 @@ bottomText = "\n\n---\n\nI am a the chosenBot, the bot who the prohecy foretold 
 bottomText += "[Check out my source code on GitHub!](https://github.com/lukehorak/chosenBot/)"
 
 eText = "The chosenBot fucked up... What have I done?!?! (hint, it's down there VV)"
+
+###########################################################################################################
+# Main
+###########################################################################################################
 
 # Where the magic happens
 for comment in subreddit.stream.comments():
