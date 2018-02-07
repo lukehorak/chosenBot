@@ -9,7 +9,7 @@ import time             # for sleep
 import botTools as bt   # Separate file for functions used in bots
 
 '''
-TODO - Figure out buildpack errors on Heroku
+TODO - Figure out buildpack errors on Heroku, or host on Pi
 '''
 
 ###########################################################################################################
