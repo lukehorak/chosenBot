@@ -1,16 +1,22 @@
+###########################################################################################################
 # chosenBot.py
+###########################################################################################################
 
-import os
-import praw
-import re
-import botTools as bt
-
-# Reddit API login, creds via praw.ini
-#reddit = praw.Reddit("chosenBot", user_agent="The chosenBot by Lukas Horak v1.0")
+import os               # for OS stuff
+import praw             # Reddit API
+import re               #
+import botTools as bt   # Separate file for functions used in bots
 
 '''
 TODO - Figure out buildpack errors on Heroku
 '''
+
+###########################################################################################################
+# Authentication
+###########################################################################################################
+
+# Reddit API login, creds via praw.ini
+#reddit = praw.Reddit("chosenBot", user_agent="The chosenBot by Lukas Horak v1.0")
 
 # Reddit API login when hosted on Heroku
 reddit = praw.Reddit(client_id=74QS4j1HhLNThw,
@@ -23,6 +29,10 @@ reddit = praw.Reddit(client_id=74QS4j1HhLNThw,
 #subreddit = reddit.subreddit("testingground4bots")
 subreddit = reddit.subreddit('prequelmemes')
 
+###########################################################################################################
+# Bot Variable definitions
+###########################################################################################################
+
 # Phrase which triggers the chosenBot
 keyword = 'men'
 
@@ -32,7 +42,10 @@ bottomText += "[Check out my source code on GitHub!](https://github.com/lukehora
 
 eText = "The chosenBot fucked up... What have I done?!?! (hint, it's down there VV)"
 
-# Where the magic happens
+###########################################################################################################
+# Main
+###########################################################################################################
+
 for comment in subreddit.stream.comments():
     if (keyword in (comment.body).lower()):
         # Get author and parent author
