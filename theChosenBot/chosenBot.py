@@ -3,28 +3,7 @@
 import os
 import praw
 import re
-#import botTools as bt
-
-###########################################################################################################
-# Function Declarations
-###########################################################################################################
-
-def parentAuthor(comment):
-    parent = comment.parent()
-    return parent.author
-
-def logPost(reply):
-    print("posted\n\n") # For logging purposes
-    print("Reply:\n", reply, "\n~~~End of Reply~~~\n")
-
-def logError(eText, e):
-    print(eText, "\n\n", e)
-
-def notReplied(comment, user):
-    for reply in comment.replies:
-        if reply.author == user:
-            return False
-    return True
+import botTools as bt
 
 ###########################################################################################################
 # Authentication
