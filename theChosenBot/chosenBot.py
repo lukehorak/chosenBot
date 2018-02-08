@@ -28,8 +28,8 @@ reddit = praw.Reddit(client_id=74QS4j1HhLNThw,
 '''
 
 # active Subs - switch out which one is commented-out for easy testing purposes
-#subreddit = reddit.subreddit("testingground4bots")
-subreddit = reddit.subreddit('prequelmemes')
+subreddit = reddit.subreddit("testingground4bots")
+#subreddit = reddit.subreddit('prequelmemes')
 
 ###########################################################################################################
 # Bot Variable definitions
@@ -66,19 +66,20 @@ while True:
                         firstHit = re.search(r"[^.]*?men[^.]*\.?", comment.body, flags=re.I).group()
                     except Exception as ex:
                         print ("firstHit fucked things up!]\n\n", "error:\n\n", ex)
-                    try:
-                        men = re.search(r"[^ ]*men[^ ]*", firstHit, flags=re.I).group()
-                    except Exception as exc:
-                        print ("men fucked things up!\n\n", "error:\n\n", exc)
-                    women = men.replace("men", "***women***")
-                    children = men.replace("men", "***children***")
+                    if not re.match('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', firstHit):
+                        try:
+                            men = re.search(r"[^ ]*men[^ ]*", firstHit, flags=re.I).group()
+                        except Exception as exc:
+                            print ("men fucked things up!\n\n", "error:\n\n", exc)
+                        women = men.replace("men", "***women***")
+                        children = men.replace("men", "***children***")
 
-                    case = re.compile(re.escape('men'), re.I) # to make sure "men" is replaced, case-independenr
-                    reply += "> " + case.sub("***men***", firstHit) + "\n\n"
-                    reply += "Not just the " + men + ", but the " + women + " and " + children + " too!"
-                    reply += bottomText
-                    comment.reply(reply)
-                    bt.logPost(reply)
+                        case = re.compile(re.escape('men'), re.I) # to make sure "men" is replaced, case-independent
+                        reply += "> " + case.sub("***men***", firstHit) + "\n\n"
+                        reply += "Not just the " + men + ", but the " + women + " and " + children + " too!"
+                        reply += bottomText
+                        #comment.reply(reply)
+                        bt.logPost(reply)
 
                 except Exception as e:
                     bt.logError(eText, e)
@@ -91,7 +92,7 @@ while True:
                     print("Praise detected")
                     reply = "From *my* point of view, *you're* a good bot"
                     reply += bottomText
-                    comment.reply(reply)
+                    #comment.reply(reply)
                     bt.logPost(reply)
                 except Exception as e:
                     bt.logError(eText, e)
@@ -103,8 +104,9 @@ while True:
                     print("Hatred detected")
                     reply = "[I HATE YOU](https://www.youtube.com/watch?v=eJrlezLvWnU)"
                     reply += bottomText
-                    comment.reply(reply)
+                    #comment.reply(reply)
                     bt.logPost(reply)
                 except Exception as e:
                     bt.logError(eText, e)
-    time.sleep(300) # Sleep for 300 sec, then try again
+    print("Sleeping...")
+    time.sleep(100) # Sleep for 300 sec, then try again
