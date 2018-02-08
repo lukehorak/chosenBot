@@ -14,7 +14,7 @@ def parentAuthor(comment):
     return parent.author
 
 def logPost(reply):
-    print("posted\n\n") # For logging purposes
+    print("Posted!\n\n") # For logging purposes
     print("Reply:\n", reply, "\n~~~End of Reply~~~\n")
 
 def logError(eText, e):
@@ -30,7 +30,8 @@ def notReplied(comment, user):
 # Logger
 ###########################################################################################################
 
-def makeLog():
-    timestamp = str(datetime.datetime.now())
+def makeLog(event):
+    timestamp = str(datetime.datetime.now()) + ": \n    "
     # Do stuff with timestamp
-    return timestamp
+    logged = "----------------\n" + timestamp + event + "\n----------------\n"
+    return logged
