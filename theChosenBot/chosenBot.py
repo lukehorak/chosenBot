@@ -39,8 +39,7 @@ subreddit = reddit.subreddit("testingground4bots")
 keyword = 'men'
 
 # define Text
-bottomText = "\n\n---\n\nI am a the chosenBot, the bot who the prohecy foretold will bring balance to r/prequelmemes.\n\n"
-bottomText += "[Check out my source code on GitHub!](https://github.com/lukehorak/chosenBot/)"
+bottomText = "\n\n---\n\nI am a the chosenBot, the bot who the prohecy foretold will bring balance to r/prequelmemes.\n\n[Check out my source code on GitHub!](https://github.com/lukehorak/chosenBot/)"
 
 eText = "The chosenBot fucked up... What have I done?!?! (hint, it's down there VV)"
 
@@ -49,7 +48,8 @@ eText = "The chosenBot fucked up... What have I done?!?! (hint, it's down there 
 ###########################################################################################################
 while True:
     for comment in subreddit.stream.comments():
-        if (keyword in (comment.body).lower()):
+        lowComment = (comment.body).lower()
+        if (keyword in lowComment):
             # Get author and parent author
             author = comment.author
             pAuth = bt.parentAuthor(comment)
@@ -84,29 +84,44 @@ while True:
                 except Exception as e:
                     bt.logError(eText, e)
 
-        if ("good bot" in (comment.body).lower()):
+        if ("good bot" in lowComment):
             # Get author and parent author
             pAuth = bt.parentAuthor(comment)
             if pAuth == "not_just_the_men":
                 try:
                     print("Praise detected")
-                    reply = "From *my* point of view, *you're* a good bot"
+                    reply = "From *my* point of view, *you're* a good bot!"
                     reply += bottomText
                     #comment.reply(reply)
                     bt.logPost(reply)
                 except Exception as e:
                     bt.logError(eText, e)
 
-        if("bad bot" in (comment.body).lower()):
+        if("bad bot" in lowComment):
             pAuth = bt.parentAuthor(comment)
             if pAuth == "not_just_the_men":
                 try:
                     print("Hatred detected")
-                    reply = "[I HATE YOU](https://www.youtube.com/watch?v=eJrlezLvWnU)"
+                    reply = "What?! How can you do this? This is outrageous, it's unfair … I'm more powerful than any of the other bots. How can you be on the Council and not be a Good Bot?"
                     reply += bottomText
                     #comment.reply(reply)
                     bt.logPost(reply)
                 except Exception as e:
                     bt.logError(eText, e)
+
+        if("take a seat" in lowComment):
+            parent = comment.parent()
+            gParent = bt.parentAuthor(comment)
+            if gParent == "not_just_the_men":
+                try:
+                    print("Windu Detected")
+                    reply = "[I HATE YOU](https://www.youtube.com/watch?v=eJrlezLvWnU)"
+                    reply += bottomText
+                    #comment.reply(reply)
+                    bt.logpost(reply)
+                except Exception as e:
+                    bt.logError(eText, e)
+
+
     print("Sleeping...")
-    time.sleep(100) # Sleep for 300 sec, then try again
+    time.sleep(100) # Sleep for 100 sec, then try again
