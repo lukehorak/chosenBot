@@ -78,7 +78,7 @@ while True:
                         reply += "> " + case.sub("***men***", firstHit) + "\n\n"
                         reply += "Not just the " + men + ", but the " + women + " and " + children + " too!"
                         reply += bottomText
-                        #comment.reply(reply)
+                        comment.reply(reply)
                         bt.logPost(reply)
 
                 except Exception as e:
@@ -92,7 +92,7 @@ while True:
                     print("Praise detected")
                     reply = "From *my* point of view, *you're* a good bot!"
                     reply += bottomText
-                    #comment.reply(reply)
+                    comment.reply(reply)
                     bt.logPost(reply)
                 except Exception as e:
                     bt.logError(eText, e)
@@ -104,7 +104,7 @@ while True:
                     print("Hatred detected")
                     reply = "What?! How can you do this? This is outrageous, it's unfair … I'm more powerful than any of the other bots. How can you be on the Council and not be a Good Bot?"
                     reply += bottomText
-                    #comment.reply(reply)
+                    comment.reply(reply)
                     bt.logPost(reply)
                 except Exception as e:
                     bt.logError(eText, e)
@@ -117,7 +117,7 @@ while True:
                     print("Windu Detected")
                     reply = "[I HATE YOU](https://www.youtube.com/watch?v=eJrlezLvWnU)"
                     reply += bottomText
-                    #comment.reply(reply)
+                    comment.reply(reply)
                     bt.logPost(reply)
                 except Exception as e:
                     bt.logError(eText, e)
