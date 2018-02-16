@@ -17,7 +17,7 @@ TODO - Figure out buildpack errors on Heroku, or host on Pi
 ###########################################################################################################
 
 # Reddit API login, creds via praw.ini
-reddit = praw.Reddit("chosenBot", user_agent="The chosenBot by Lukas Horak v1.0")
+reddit = praw.Reddit("chosenBot", user_agent="The chosenBot by Lukas Horak v1.0.1")
 
 '''
 # Reddit API login when hosted on Heroku
