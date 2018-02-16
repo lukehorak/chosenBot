@@ -28,8 +28,8 @@ reddit = praw.Reddit(client_id=74QS4j1HhLNThw,
 '''
 
 # active Subs - switch out which one is commented-out for easy testing purposes
-subreddit = reddit.subreddit("testingground4bots")
-#subreddit = reddit.subreddit('prequelmemes')
+#subreddit = reddit.subreddit("testingground4bots")
+subreddit = reddit.subreddit('prequelmemes')
 
 ###########################################################################################################
 # Bot Variable definitions
@@ -118,7 +118,7 @@ while True:
                     reply = "[I HATE YOU](https://www.youtube.com/watch?v=eJrlezLvWnU)"
                     reply += bottomText
                     #comment.reply(reply)
-                    bt.logpost(reply)
+                    bt.logPost(reply)
                 except Exception as e:
                     bt.logError(eText, e)
 
