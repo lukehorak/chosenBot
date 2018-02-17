@@ -8,24 +8,12 @@ import re               # RegEx
 import time             # for sleep
 import botTools as bt   # Separate file for functions used in bots
 
-'''
-TODO - Figure out buildpack errors on Heroku, or host on Pi
-'''
-
 ###########################################################################################################
 # Authentication
 ###########################################################################################################
 
 # Reddit API login, creds via praw.ini
-reddit = praw.Reddit("chosenBot", user_agent="The chosenBot by Lukas Horak v1.0.1")
-
-'''
-# Reddit API login when hosted on Heroku
-reddit = praw.Reddit(client_id=74QS4j1HhLNThw,
-                     client_secret=dazewYctbRENtde6snqIvfOVK_4,
-                     username=os.environ['REDDIT_USERNAME'],
-                     password=os.environ['REDDIT_PASSWORD'])
-'''
+reddit = praw.Reddit("chosenBot", user_agent="The chosenBot by Lukas Horak v1.0.2")
 
 # active Subs - switch out which one is commented-out for easy testing purposes
 #subreddit = reddit.subreddit("testingground4bots")
@@ -36,12 +24,18 @@ subreddit = reddit.subreddit('prequelmemes')
 ###########################################################################################################
 
 # Phrase which triggers the chosenBot
-keyword = 'men'
+keyword = "men"
+
+# Used to prevent talking to itself, or being triggered by mentions
+myName = "not_just_the_men"
+
+# Used to filter out URLs
+URL = "http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+"
 
 # define Text
-bottomText = "\n\n---\n\nI am a the chosenBot, the bot who the prohecy foretold will bring balance to r/prequelmemes.\n\n[Check out my source code on GitHub!](https://github.com/lukehorak/chosenBot/)"
+bottomText = "\n\n---\n\nI am a the chosenBot, the bot who the prophecy foretold will bring balance to r/prequelmemes.\n\n[Check out my source code on GitHub!](https://github.com/lukehorak/chosenBot/)"
 
-eText = "The chosenBot fucked up... What have I done?!?! (hint, it's down there VV)"
+eText = "Error: What have I done?!?! (hint, it's down there VV)"
 
 ###########################################################################################################
 # Main
@@ -59,27 +53,28 @@ while True:
             print ("Parent Comment Author = ", pAuth) #for testing
             #print("Comment: ", comment.body, "\n~~~End of Comment~~~\n") # For unit testing
 
-            if (author != "not_just_the_men" and bt.notReplied(comment, "not_just_the_men")):
+            if (author != myName and bt.notReplied(comment, myName)):
                 try:
                     reply = ''
                     try:
                         firstHit = re.search(r"[^.]*?men[^.]*\.?", comment.body, flags=re.I).group()
                     except Exception as ex:
                         print ("firstHit fucked things up!]\n\n", "error:\n\n", ex)
-                    if not re.match('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', firstHit):
+                    if not re.match(URL, firstHit):
                         try:
                             men = re.search(r"[^ ]*men[^ ]*", firstHit, flags=re.I).group()
                         except Exception as exc:
                             print ("men fucked things up!\n\n", "error:\n\n", exc)
-                        women = men.replace("men", "***women***")
-                        children = men.replace("men", "***children***")
 
-                        case = re.compile(re.escape('men'), re.I) # to make sure "men" is replaced, case-independent
-                        reply += "> " + case.sub("***men***", firstHit) + "\n\n"
-                        reply += "Not just the " + men + ", but the " + women + " and " + children + " too!"
-                        reply += bottomText
-                        comment.reply(reply)
-                        bt.logPost(reply)
+                        if men != myName:
+                            case = re.compile(re.escape('men'), re.I) # to make sure "men" is replaced, case-independent
+                            women = case.sub("***women***", men)
+                            children = case.sub("***children***", men)
+                            reply += "> " + case.sub("***men***", firstHit) + "\n\n"
+                            reply += "Not just the " + men + ", but the " + women + " and " + children + " too!"
+                            reply += bottomText
+                            comment.reply(reply)
+                            bt.logPost(reply)
 
                 except Exception as e:
                     bt.logError(eText, e)
