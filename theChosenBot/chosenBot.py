@@ -39,7 +39,7 @@ subreddit = reddit.subreddit('prequelmemes')
 keyword = 'men'
 
 # define Text
-bottomText = "\n\n---\n\nI am a the chosenBot, the bot who the prohecy foretold will bring balance to r/prequelmemes.\n\n[Check out my source code on GitHub!](https://github.com/lukehorak/chosenBot/)"
+bottomText = "\n\n---\n\nI am a the chosenBot, the bot who the prophecy foretold will bring balance to r/prequelmemes.\n\n[Check out my source code on GitHub!](https://github.com/lukehorak/chosenBot/)"
 
 eText = "The chosenBot fucked up... What have I done?!?! (hint, it's down there VV)"
 
